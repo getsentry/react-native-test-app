@@ -246,6 +246,12 @@ PODS:
     - ReactCommon/callinvoker (= 0.62.1)
   - ReactTestApp-DevSupport (0.0.1-dev)
   - ReactTestApp-Resources (1.0.0-dev)
+  - RNSentry (1.7.2):
+    - React
+    - Sentry (~> 5.2.0)
+  - Sentry (5.2.2):
+    - Sentry/Core (= 5.2.2)
+  - Sentry/Core (5.2.2)
   - SwiftLint (0.40.0)
   - Yoga (1.14.0)
 
@@ -279,13 +285,15 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native-macos/Libraries/Vibration`)
   - ReactCommon/callinvoker (from `../node_modules/react-native-macos/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native-macos/ReactCommon`)
-  - ReactTestApp-DevSupport (from `../..`)
+  - ReactTestApp-DevSupport (from `../node_modules/react-native-test-app`)
   - ReactTestApp-Resources (from `..`)
+  - "RNSentry (from `../node_modules/@sentry/react-native/RNSentry.podspec`)"
   - SwiftLint
   - Yoga (from `../node_modules/react-native-macos/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - Sentry
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -342,9 +350,11 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native-macos/ReactCommon"
   ReactTestApp-DevSupport:
-    :path: "../.."
+    :path: "../node_modules/react-native-test-app"
   ReactTestApp-Resources:
     :path: ".."
+  RNSentry:
+    :podspec: "../node_modules/@sentry/react-native/RNSentry.podspec"
   Yoga:
     :path: "../node_modules/react-native-macos/ReactCommon/yoga"
 
@@ -377,9 +387,11 @@ SPEC CHECKSUMS:
   ReactCommon: 5832dcdbcccc6bdc11f99181df74ed5f2b47789a
   ReactTestApp-DevSupport: 12e322d5ef4947012de09bf38580ee2ec385cc00
   ReactTestApp-Resources: 4791cb085c4a05930792ae7206240bcc6813e539
+  RNSentry: 9f7d6f69dbe851cf4fa1213919721a50ff132883
+  Sentry: 8fa58a051237554f22507fb483b9a1de0171a2dc
   SwiftLint: 4154893c73a4c52d6240195507eb7a3e3c64087e
   Yoga: af4be6a73a3dfa9f8108031e617610931101b809
 
-PODFILE CHECKSUM: 46118b2425d29bf77d0f229aa6514b3efa6510fa
+PODFILE CHECKSUM: 4af8bb00057032c51429e1b97fc78f50b63dd282
 
 COCOAPODS: 1.9.3

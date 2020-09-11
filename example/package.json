@@ -25,5 +25,8 @@
     "react-native-macos": "0.62.1",
     "react-native-test-app": "../",
     "react-native-windows": "0.62.7"
+  },
+  "dependencies": {
+    "@sentry/react-native": "^1.7.2"
   }
 }

@@ -7,3 +7,9 @@ use_test_app! do |target|
     pod 'Example-Tests', :path => '..'
   end
 end
+
+# target 'ReactTestApp' do
+#   # Your react-native and other pods
+
+#   pod 'RNSentry', :podspec => '../node_modules/@sentry/react-native/RNSentry.podspec' # or your path to node_modules
+# end

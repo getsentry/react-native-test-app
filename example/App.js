@@ -1,4 +1,6 @@
 import React from "react";
+import * as Sentry from "@sentry/react-native";
+
 import {
   SafeAreaView,
   ScrollView,
@@ -45,6 +47,28 @@ const Section = ({ children, title }) => {
   );
 };
 
+Sentry.init({
+  dsn:
+    // Replace the example DSN below with your own DSN:
+    'https://6890c2f6677340daa4804f8194804ea2@o19635.ingest.sentry.io/148053',
+  debug: true,
+  beforeSend: (e) => {
+    if (!e.tags) {
+      e.tags = {};
+    }
+    e.tags['beforeSend'] = 'JS layer';
+
+    console.log('Event beforeSend:', e);
+
+    // setEventId(e.event_id);
+
+    return e;
+  },
+  enableAutoSessionTracking: true,
+  // For testing, session close when 5 seconds (instead of the default 30) in the background.
+  sessionTrackingIntervalMillis: 5000,
+});
+
 const App = () => {
   const isDarkMode = useColorScheme && useColorScheme() === "dark";
 
@@ -68,36 +92,62 @@ const App = () => {
   ) : null;
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-        <Header />
-        {hermes}
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}
-        >
-          <Section title="Step One">
+    <SafeAreaView>
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      style={styles.scrollView}>
+      <Header />
+      {global.HermesInternal == null ? null : (
+        <View style={styles.engine}>
+          <Text style={styles.footer}>Engine: Hermes</Text>
+        </View>
+      )}
+      <View style={styles.body}>
+        <View style={styles.sectionContainer}>
+          <Text
+            style={styles.sectionTitle}
+            onPress={() => {
+              Sentry.captureMessage('React Native Test Message');
+            }}>
+            captureMessage
+          </Text>
+          <Text
+            style={styles.sectionTitle}
+            onPress={() => {
+              Sentry.captureException(new Error('captureException test'));
+            }}>
+            captureException
+          </Text>
+          <Text
+            style={styles.sectionTitle}
+            onPress={() => {
+              throw new Error('throw new error test');
+            }}>
+            throw new Error
+          </Text>
+          <Text
+            style={styles.sectionTitle}
+            onPress={() => {
+              Sentry.nativeCrash();
+            }}>
+            nativeCrash
+          </Text>
+          <Text style={styles.sectionTitle}>Step One</Text>
+          <Text style={styles.sectionDescription}>
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Learn More</Text>
+          <Text style={styles.sectionDescription}>
+            Read the docs to discover what to do next:
+          </Text>
+        </View>
+        <LearnMoreLinks />
+      </View>
+    </ScrollView>
+  </SafeAreaView>
   );
 };
 
